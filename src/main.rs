@@ -1,18 +1,17 @@
-//use std::io::prelude::*;
+// use std::io::prelude::*;
+use std::env;
 use std::net::*;
 
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let ip: Ipv4Addr = args[1].parse().expect("ip is in an invalid form.");
+    let port: u16 = args[2].parse().unwrap();
+
+    println!("ip is {ip}, and the port is {port}.");
     println!("The address is {}.", build_address(Ipv4Addr::new(127,0,0,1), 20));
-   // build_address(Ipv4Addr::new(127,0,0,1), 70);
 }
 
-/*
-fn connect(address: Ipv4Addr, port: u16) -> u8 {
-    let mut stream = TcpStream::connect(build_address(address, port));
-    0
-}
-*/
 
 fn build_address(address: Ipv4Addr, port: u16) -> String {
     let mut addr_and_port: String = address.to_string();
