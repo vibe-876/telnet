@@ -1,4 +1,5 @@
-// use std::io::prelude::*;
+#![allow(unused)]
+use std::io;
 use std::env;
 use std::net::*;
 
@@ -9,7 +10,19 @@ fn main() {
     let port: u16 = args[2].parse().unwrap();
 
     println!("ip is {ip}, and the port is {port}.");
-    println!("The address is {}.", build_address(Ipv4Addr::new(127,0,0,1), 20));
+    println!("The address is {}.", build_address(ip, port));
+
+    loop {
+	let mut buffer = String::new();
+	match io::stdin().read_line(&mut buffer) {
+	    Ok(n) => {
+		if(buffer == "exit\n".to_string()) { break };
+		print!("{buffer}");
+	    }
+	    
+	    Err(error) => println!("{error}"),
+	}
+    }
 }
 
 
